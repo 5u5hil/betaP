@@ -117,7 +117,7 @@ angular.module('your_app_name.controllers', [])
             }, 30);
         })
         .controller('SignupCtrl', function ($scope, $state, $http, $rootScope) {
-            $scope.interface = window.localStorage.setItem('interface_id','3');
+            $scope.interface = window.localStorage.setItem('interface_id','4');
             $scope.user = {};
             $scope.user.name = '';
             $scope.user.email = '';
