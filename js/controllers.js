@@ -179,10 +179,11 @@ angular.module('your_app_name.controllers', [])
             };
             //Check if email is already registered
             $scope.checkEmail = function (email) {
+                $scope.interface = window.localStorage.getItem('interface_id');
                 $http({
                     method: 'GET',
                     url: domain + 'check-user-email',
-                    params: {userEmail: email}
+                    params: {userEmail: email, interface: $scope.interface}
                 }).then(function successCallback(response) {
                     if (response.data > 0) {
                         $scope.user.email = '';
