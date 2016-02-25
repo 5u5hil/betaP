@@ -51,7 +51,7 @@ angular.module('your_app_name.controllers', [])
 
 //LOGIN
         .controller('LoginCtrl', function ($scope, $state, $templateCache, $q, $rootScope, $ionicLoading, $timeout) {
-            $scope.interface = window.localStorage.getItem('interface_id');
+            $scope.interface = window.localStorage.setItem('interface_id','4');
             $scope.doLogIn = function () {
                 $ionicLoading.show({template: 'Loading...'});
                 var data = new FormData(jQuery("#loginuser")[0]);
@@ -196,6 +196,26 @@ angular.module('your_app_name.controllers', [])
                 }, function errorCallback(response) {
                     console.log(response);
                 });
+            };
+            
+            $scope.checkPhone = function (phone){
+               $scope.interface = window.localStorage.getItem('interface_id');
+                $http({
+                    method: 'GET',
+                    url: domain + 'check-user-phone',
+                    params: {userPhone: phone, interface: $scope.interface}
+                }).then(function successCallback(response) {
+                    if (response.data > 0) {
+                        $scope.user.email = '';
+                        $scope.emailError = "This phone number is already registered!";
+                        $scope.emailError.digest;
+                    } else {
+                        $scope.emailError = "";
+                        $scope.emailError.digest;
+                    }
+                }, function errorCallback(response) {
+                    console.log(response);
+                }); 
             };
         })
 
