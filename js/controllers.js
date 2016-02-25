@@ -51,7 +51,8 @@ angular.module('your_app_name.controllers', [])
 
 //LOGIN
         .controller('LoginCtrl', function ($scope, $state, $templateCache, $q, $rootScope, $ionicLoading, $timeout) {
-            $scope.interface = window.localStorage.setItem('interface_id','4');
+            window.localStorage.setItem('interface_id','4');
+            $scope.interface = window.localStorage.getItem('interface_id');
             $scope.doLogIn = function () {
                 $ionicLoading.show({template: 'Loading...'});
                 var data = new FormData(jQuery("#loginuser")[0]);
@@ -153,6 +154,7 @@ angular.module('your_app_name.controllers', [])
                 console.log("data "+data);
                 var code = window.localStorage.getItem('code');
                 if (parseInt(code) === parseInt(otp)) {
+                     console.log('code'+code+'--otp--'+otp)
                     $.ajax({
                         type: 'GET',
                         url: domain + "register",
@@ -175,6 +177,8 @@ angular.module('your_app_name.controllers', [])
                             console.log(e.responseText);
                         }
                     });
+                }else {
+                     alert('Enterd OTP code is not correct. Kindly ckeck');
                 }
             };
             //Check if email is already registered
@@ -205,13 +209,14 @@ angular.module('your_app_name.controllers', [])
                     url: domain + 'check-user-phone',
                     params: {userPhone: phone, interface: $scope.interface}
                 }).then(function successCallback(response) {
+                    console.log(response.data);
                     if (response.data > 0) {
-                        $scope.user.email = '';
-                        $scope.emailError = "This phone number is already registered!";
-                        $scope.emailError.digest;
+                        $scope.user.phone = '';
+                        $scope.phoneError = "This phone number is already registered!";
+                        $scope.phoneError.digest;
                     } else {
-                        $scope.emailError = "";
-                        $scope.emailError.digest;
+                        $scope.phoneError = "";
+                        $scope.phoneError.digest;
                     }
                 }, function errorCallback(response) {
                     console.log(response);
