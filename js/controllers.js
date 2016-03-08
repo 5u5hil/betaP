@@ -54,18 +54,21 @@ angular.module('your_app_name.controllers', [])
         .controller('LoginCtrl', function ($scope, $state, $templateCache, $q, $rootScope, $ionicLoading, $timeout,$http) {
             window.localStorage.setItem('interface_id','4');
             window.localStorage.setItem('lang','marathi');
-              $scope.lang = window.localStorage.getItem('lang');
+            $scope.lang = window.localStorage.getItem('lang');
             var text = 'login';
             $http({
                     method: 'GET',
                     url: domain + 'get-login',
                     params: {lang:$scope.lang,text:text}
                 }).then(function successCallback(response) {
+                    
+                    console.log(response.data.email);
                     if (response.data) {
-                        console.log(response.data);
-                       
-                        alert(response.data.marathi);
-                         $scope.logintext = response.data.marathi;
+                        
+                         $scope.logintext = response.data.login.marathi;
+                         $scope.emailtext = response.data.email.marathi;
+                         $scope.passtext = response.data.password.marathi;
+                         $scope.forgotpasstext = response.data.forgotpass.marathi;
                     
                     } else {
                       

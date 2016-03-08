@@ -6,15 +6,15 @@
                     <form name="login_form" class="" novalidate ng-cloak id="loginuser" ng-submit="doLogIn()">
                         <input type="hidden" value="{{interface}}" ng-model="interface" name="interface">
                         <my-tabs>
-                            <my-tab title="Login">
+                            <my-tab title="{{logintext}}">
                                 <div class="list">
                                     <label class="item item-input">
-                                        <input type="email" placeholder="Mobile or Email" id="useremail" name="user" ng-model="user.email" required>
+                                        <input type="email" placeholder="{{emailtext}}" id="useremail" name="user" ng-model="user.email" required>
                                         
                                     </label>
 
                                     <label class="item item-input" show-hide-container>
-                                        <input type="password" placeholder="Password" id="password" name="password" ng-model="user.password" required show-hide-input>                                        
+                                        <input type="password" placeholder="{{passtext}}" id="password" name="password" ng-model="user.password" required show-hide-input>                                        
                                     </label>                                    
                                 </div>
                                 <div class='error text-center'>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="alternative-actions">
                     <a class="forgot-password button button-small button-clear button-light" ui-sref="auth.forgot-password">
-                        Set/Reset Password?
+                        {{forgotpasstext}}
                     </a>
                     <a class="sign-up button button-small button-clear button-light" ui-sref="auth.signup">
                         Sign Up
