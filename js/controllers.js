@@ -5,6 +5,7 @@ angular.module('your_app_name.controllers', [])
 
         .controller('AuthCtrl', function ($scope, $state, $ionicConfig, $rootScope) {
              $scope.interface = window.localStorage.setItem('interface_id','4');
+             $scope.language = window.localStorage.setItem('lang','marathi');
             if (window.localStorage.getItem('id') != null) {
                 $rootScope.userLogged = 1;
                 $rootScope.username = window.localStorage.getItem('fname');
@@ -52,6 +53,7 @@ angular.module('your_app_name.controllers', [])
 //LOGIN
         .controller('LoginCtrl', function ($scope, $state, $templateCache, $q, $rootScope, $ionicLoading, $timeout) {
             window.localStorage.setItem('interface_id','4');
+            window.localStorage.setItem('lang','marathi');
             $scope.interface = window.localStorage.getItem('interface_id');
             $scope.doLogIn = function () {
                 $ionicLoading.show({template: 'Loading...'});
@@ -119,6 +121,7 @@ angular.module('your_app_name.controllers', [])
         })
         .controller('SignupCtrl', function ($scope, $state, $http, $rootScope) {
             $scope.interface = window.localStorage.setItem('interface_id','4');
+            $scope.language = window.localStorage.setItem('lang','marathi');
             $scope.user = {};
             $scope.user.name = '';
             $scope.user.email = '';
