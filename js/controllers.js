@@ -51,9 +51,29 @@ angular.module('your_app_name.controllers', [])
 
 
 //LOGIN
-        .controller('LoginCtrl', function ($scope, $state, $templateCache, $q, $rootScope, $ionicLoading, $timeout) {
+        .controller('LoginCtrl', function ($scope, $state, $templateCache, $q, $rootScope, $ionicLoading, $timeout,$http) {
             window.localStorage.setItem('interface_id','4');
             window.localStorage.setItem('lang','marathi');
+              $scope.lang = window.localStorage.getItem('lang');
+            var text = 'login';
+            $http({
+                    method: 'GET',
+                    url: domain + 'get-login',
+                    params: {lang:$scope.lang,text:text}
+                }).then(function successCallback(response) {
+                    if (response.data) {
+                        console.log(response.data);
+                       
+                        alert(response.data.marathi);
+                         $scope.logintext = response.data.marathi;
+                    
+                    } else {
+                      
+                    }
+                }, function errorCallback(response) {
+                   // console.log(response);
+                });
+            
             $scope.interface = window.localStorage.getItem('interface_id');
             $scope.doLogIn = function () {
                 $ionicLoading.show({template: 'Loading...'});
