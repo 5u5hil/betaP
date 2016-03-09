@@ -14,10 +14,19 @@
 		</div>
 		 
 	<div class="page-data">
-	<div class="list miscellaneous-functionalities">
+            <div class="list miscellaneous-functionalities" ng-if="specializationsL==''">
                             <a class="item  item-icon-right" ui-sref="app.consultation-cards({'id':spec.category_id, 'res' : 'json'})"  ng-repeat="spec in specializations| orderBy:'specialization' |filter : searchKeyword ">
                                 <div>
                                     <span class="stitle">{{spec.specialization}}</span>
+                                    <!-- <p class=""><label ng-repeat="focus in spec.focuses">{{focus.focus}}, </label>{{spec.description}}</p>-->
+                                </div>
+                                <i class="icon ion-ios-arrow-right"></i>
+                            </a>
+	</div>
+            <div class="list miscellaneous-functionalities" ng-if="specializationsL!=''">
+                            <a class="item  item-icon-right" ui-sref="app.consultation-cards({'id':spec.category_id, 'res' : 'json'})"  ng-repeat="specL in specializationsL| orderBy:'specialization' |filter : searchKeyword ">
+                                <div>
+                                    <span class="stitle">{{specL}}</span>
                                     <!-- <p class=""><label ng-repeat="focus in spec.focuses">{{focus.focus}}, </label>{{spec.description}}</p>-->
                                 </div>
                                 <i class="icon ion-ios-arrow-right"></i>

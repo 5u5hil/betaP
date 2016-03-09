@@ -741,8 +741,10 @@ angular.module('your_app_name.controllers', [])
                 url: domain + 'doctors/consultations',
                 params: {userId: $scope.userId,interface:$scope.interface,lang:$scope.lang }
             }).then(function successCallback(response) {
+                console.log("Lang "+response.data.specL);
                 $ionicLoading.hide();
                 $scope.specializations = response.data.spec;
+                $scope.specializationsL = response.data.specL;
                 //Video
                 $scope.video_time = response.data.video_time;
                 $scope.video_app = response.data.video_app;
