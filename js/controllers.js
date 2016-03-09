@@ -16,10 +16,35 @@ angular.module('your_app_name.controllers', [])
         })
 
 // APP
-        .controller('AppCtrl', function ($scope, $state, $ionicConfig, $rootScope, $ionicLoading, $ionicHistory, $timeout) {
+        .controller('AppCtrl', function ($scope,$http, $state, $ionicConfig, $rootScope, $ionicLoading, $ionicHistory, $timeout) {
 
             $rootScope.imgpath = domain + "/public/frontend/user/";
             $rootScope.attachpath = domain + "/public";
+            
+            window.localStorage.setItem('lang','marathi');
+            $scope.lang = window.localStorage.getItem('lang');
+           
+            $http({
+                    method: 'GET',
+                    url: domain + 'get-sidemenu-lang',
+                    params: {lang:$scope.lang}
+                }).then(function successCallback(response) {
+                    
+                   
+                    if (response.data) {
+                        
+                         $scope.hometext = response.data.home.marathi;
+                         $scope.consultationtext = response.data.consultation.marathi;
+                         $scope.welcometext = response.data.welcome.marathi;
+                         $scope.logouttext = response.data.logout.marathi;
+                    
+                    } else {
+                      
+                    }
+                }, function errorCallback(response) {
+                   // console.log(response);
+                });
+            
             
             if (window.localStorage.getItem('id') != null) {
                 $rootScope.userLogged = 1;
@@ -55,11 +80,11 @@ angular.module('your_app_name.controllers', [])
             window.localStorage.setItem('interface_id','4');
             window.localStorage.setItem('lang','marathi');
             $scope.lang = window.localStorage.getItem('lang');
-            var text = 'login';
+           
             $http({
                     method: 'GET',
                     url: domain + 'get-login',
-                    params: {lang:$scope.lang,text:text}
+                    params: {lang:$scope.lang}
                 }).then(function successCallback(response) {
                     
                     console.log(response.data.email);
@@ -362,8 +387,34 @@ angular.module('your_app_name.controllers', [])
 //bring specific category providers
         .controller('CategoryListCtrl', function ($scope, $http, $stateParams, $rootScope) {
             if (get('id') != null) {
+                
                 $rootScope.userLogged = 1;
+                window.localStorage.setItem('lang','marathi');
+            $scope.lang = window.localStorage.getItem('lang');
+            
+            $http({
+                    method: 'GET',
+                    url: domain + 'get-categoty-lang',
+                    params: {lang:$scope.lang}
+                }).then(function successCallback(response) {
+                     if (response.data) {
+                        
+                         $scope.hometext = response.data.home.marathi;
+                         $scope.consultationtext = response.data.consultation.marathi;
+                         $scope.recordtext = response.data.record.marathi;
+                         $scope.librarytext = response.data.library.marathi;
+                         $scope.comingsoontext = response.data.comingsoon.marathi;
+                        
+                    } else {
+                      
+                    }
+                }, function errorCallback(response) {
+                   // console.log(response);
+                });
+        
             }
+            
+            
             $scope.category_sources = [];
             $scope.categoryId = $stateParams.categoryId;
         })
@@ -678,6 +729,8 @@ angular.module('your_app_name.controllers', [])
                 $state.go($nurl);
             }
             $scope.interface = window.localStorage.getItem('interface_id');
+           // window.localStorage.setItem('lang','marathi');
+            $scope.lang = window.localStorage.getItem('lang');
             $scope.imgpath = domain;
             $scope.specializations = {};
             $scope.userId = get('id');
@@ -686,7 +739,7 @@ angular.module('your_app_name.controllers', [])
             $http({
                 method: 'GET',
                 url: domain + 'doctors/consultations',
-                params: {userId: $scope.userId,interface:$scope.interface }
+                params: {userId: $scope.userId,interface:$scope.interface,lang:$scope.lang }
             }).then(function successCallback(response) {
                 $ionicLoading.hide();
                 $scope.specializations = response.data.spec;
@@ -716,6 +769,10 @@ angular.module('your_app_name.controllers', [])
                 $scope.chat_doctorsData = response.data.chat_doctorsData;
                 $scope.chat_products = response.data.chat_products;
                 //$state.go('app.category-detail');
+                $scope.booktext = response.data.book.marathi;
+                $scope.activetext = response.data.active.marathi;
+                $scope.pasttext = response.data.past.marathi;
+                
             }, function errorCallback(e) {
                 console.log(e);
             });
